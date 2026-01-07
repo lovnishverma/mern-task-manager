@@ -4,7 +4,7 @@ A simple to-do application built using the **MERN stack**—MongoDB, Express.js,
 
 ---
 
-##  What’s Inside?
+## 📂 What’s Inside?
 
 - **Backend** (`backend/`): REST API using Node.js, Express.js, and MongoDB to manage tasks.
 - **Frontend** (`frontend/`): React app (via Vite) that lets you interact with tasks in a modern UI.
@@ -12,31 +12,37 @@ A simple to-do application built using the **MERN stack**—MongoDB, Express.js,
 
 ---
 
-##  Setup Guide (for Beginners)
+## 🚀 Setup Guide (Local Development)
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/lovnishverma/mern-task-manager.git
+git clone [https://github.com/lovnishverma/mern-task-manager.git](https://github.com/lovnishverma/mern-task-manager.git)
 cd mern-task-manager
-````
+
+```
 
 ### 2. Setup the Backend (API server)
 
 ```bash
 cd backend
 npm install
+
 ```
 
 * Create a `.env` file with your MongoDB connection string:
+```env
+MONGO_URI=your_mongodb_connection_string
 
-  ```env
-  MONGO_URI=your_mongodb_connection_string
-  ```
+```
+
+
 * Start the backend server:
+```bash
+node server.js
 
-  ```bash
-  node server.js
-  ```
+```
+
+
 * It should run on `http://localhost:5000`.
 
 ### 3. Setup the Frontend (User interface)
@@ -47,6 +53,7 @@ In a new terminal:
 cd ../frontend
 npm install
 npm run dev -- --host
+
 ```
 
 * This starts the app at `http://localhost:5173`.
@@ -61,7 +68,63 @@ npm run dev -- --host
 
 ---
 
-## Why It’s Helpful for Beginners
+## ☁️ Deployment Guide (Render)
+
+Deploy your app for free using Render. You will create two separate services: one for the backend and one for the frontend.
+
+### Step 1: Deploy the Backend (Web Service)
+
+1. Log in to [Render](https://render.com/).
+2. Click **New +** and select **Web Service**.
+3. Connect your GitHub repository.
+4. Configure the service:
+* **Name:** `mern-task-backend` (or similar)
+* **Root Directory:** `backend`
+* **Environment:** Node
+* **Build Command:** `npm install`
+* **Start Command:** `node server.js`
+
+
+5. Scroll down to **Environment Variables** and add:
+* `MONGO_URI`: Your MongoDB connection string.
+* `PORT`: `10000` (Render's default port).
+
+
+6. Click **Create Web Service**.
+7. **Copy the URL** provided by Render (e.g., `https://your-backend.onrender.com`). You will need this for the frontend.
+
+### Step 2: Deploy the Frontend (Static Site)
+
+1. Go back to the Render Dashboard.
+2. Click **New +** and select **Static Site**.
+3. Connect the same GitHub repository.
+4. Configure the service:
+* **Name:** `mern-task-frontend`
+* **Root Directory:** `frontend`
+* **Build Command:** `npm install && npm run build`
+* **Publish Directory:** `dist`
+
+
+5. **Environment Variables:**
+* Add a variable named `VITE_API_URL`.
+* Set the value to your **Backend URL** from Step 1 (add `/api` at the end if your API routes require it, e.g., `https://your-backend.onrender.com/api`).
+
+
+6. **Rewrite Rules:**
+* To ensure React Router works correctly, go to the **Redirects/Rewrites** tab.
+* Add a new rule:
+* **Source:** `/*`
+* **Destination:** `/index.html`
+* **Action:** Rewrite
+
+
+
+
+7. Click **Create Static Site**.
+
+---
+
+## 💡 Why It’s Helpful for Beginners
 
 * Clear separation of **frontend** and **backend** code.
 * Learn how React interacts with a **REST API**.
@@ -70,19 +133,18 @@ npm run dev -- --host
 
 ---
 
-## Tips if It Doesn’t Work
+## 🛠 Tips if It Doesn’t Work
 
-* Make sure the backend is running before using the frontend.
-* If tasks don’t load:
+* **Backend First:** Make sure the backend is running before using the frontend.
+* **Connection Issues:** If tasks don’t load:
+* **Locally:** Ensure the `api.js` in `frontend/src` points to `http://localhost:5000` (or your LAN IP).
+* **On Render:** Ensure you added the `VITE_API_URL` environment variable correctly.
 
-  * Ensure the `api.js` in `frontend/src` points to `http://localhost:5000` (or your LAN IP if using another device).
-* If you're on Windows and see line-ending warnings from Git (`LF will be replaced by CRLF`), that’s normal and safe to ignore.
+
+* **Windows Users:** If you see line-ending warnings from Git (`LF will be replaced by CRLF`), that’s normal and safe to ignore.
 
 ---
 
 ## Happy Coding!
 
 Build, break, fix, and learn—this app is your sandbox to explore full-stack development with MERN. Feel free to tweak it, experiment, and make it your own!
-
----
-
