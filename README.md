@@ -2,21 +2,27 @@
 
 A simple to-do application built using the **MERN stack**—MongoDB, Express.js, React, and Node.js. Learn full-stack development with basic functionality to **Add**, **View**, **Update**, and **Delete** tasks.
 
+## 🔗 Live Demo
+
+* **Frontend (UI):** [https://mern-task-frontend-gwue.onrender.com/](https://mern-task-frontend-gwue.onrender.com/)
+* **Backend (API):** [https://mern-task-manager-b89p.onrender.com/](https://mern-task-manager-b89p.onrender.com/)
+
 ---
 
 ## 📂 What’s Inside?
 
-- **Backend** (`backend/`): REST API using Node.js, Express.js, and MongoDB to manage tasks.
-- **Frontend** (`frontend/`): React app (via Vite) that lets you interact with tasks in a modern UI.
-- **Tailwind CSS** already integrated for quick and clean styling.
+-   **Backend** (`backend/`): REST API using Node.js, Express.js, and MongoDB to manage tasks.
+-   **Frontend** (`frontend/`): React app (via Vite) that lets you interact with tasks in a modern UI.
+-   **Tailwind CSS** already integrated for quick and clean styling.
 
 ---
 
 ## 🚀 Setup Guide (Local Development)
 
 ### 1. Clone the repository
+
 ```bash
-git clone https://github.com/lovnishverma/mern-task-manager.git
+git clone [https://github.com/lovnishverma/mern-task-manager.git](https://github.com/lovnishverma/mern-task-manager.git)
 cd mern-task-manager
 
 ```
@@ -29,25 +35,25 @@ npm install
 
 ```
 
-* Create a `.env` file with your MongoDB connection string:
+1. Create a `.env` file in the `backend/` folder and add your MongoDB connection string:
 ```env
 MONGO_URI=your_mongodb_connection_string
 
 ```
 
 
-* Start the backend server:
+2. Start the backend server:
 ```bash
 node server.js
 
 ```
 
 
-* It should run on `http://localhost:5000`.
+*It should run on `http://localhost:5000`.*
 
 ### 3. Setup the Frontend (User interface)
 
-In a new terminal:
+Open a new terminal window:
 
 ```bash
 cd ../frontend
@@ -78,7 +84,7 @@ Deploy your app for free using Render. You will create two separate services: on
 2. Click **New +** and select **Web Service**.
 3. Connect your GitHub repository.
 4. Configure the service:
-* **Name:** `mern-task-backend` (or similar)
+* **Name:** `mern-task-backend`
 * **Root Directory:** `backend`
 * **Environment:** Node
 * **Build Command:** `npm install`
@@ -107,7 +113,7 @@ Deploy your app for free using Render. You will create two separate services: on
 
 5. **Environment Variables:**
 * Add a variable named `VITE_API_URL`.
-* Set the value to your **Backend URL** from Step 1 (add `/api` at the end if your API routes require it, e.g., `https://your-backend.onrender.com/api`).
+* Set the value to your **Backend URL** from Step 1 (e.g., `https://your-backend.onrender.com/api`).
 
 
 6. **Rewrite Rules:**
@@ -117,117 +123,81 @@ Deploy your app for free using Render. You will create two separate services: on
 * **Destination:** `/index.html`
 * **Action:** Rewrite
 
-**Optional:**
 
-You can deploy the frontend to **GitHub Pages** too. It is free and works very well for React (Vite) applications.
 
-However, since your backend is on Render, you will still need to point your frontend to that Render backend URL.
 
-### **Steps to Deploy Frontend to GitHub Pages**
+7. Click **Create Static Site**.
 
-#### **1. Install `gh-pages**`
+---
 
-In your **frontend** directory, install the deployment tool:
+## 🌐 Alternative: Deploy Frontend to GitHub Pages
+
+If you prefer to host the frontend on GitHub Pages instead of Render, follow these steps.
+
+### 1. Install `gh-pages`
+
+In your `frontend/` directory:
 
 ```bash
-cd frontend
 npm install gh-pages --save-dev
 
 ```
 
-#### **2. Update `frontend/vite.config.js**`
+### 2. Update `vite.config.js`
 
-You need to set the `base` path in Vite so it knows where the files are being served from on GitHub Pages.
-
-Open `frontend/vite.config.js` and add the `base` property:
+Add the `base` path property:
 
 ```javascript
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
+// [https://vitejs.dev/config/](https://vitejs.dev/config/)
 export default defineConfig({
   plugins: [react()],
-  base: "/mern-task-manager/", // REPLACE "mern-task-manager" with your exact repo name
+  base: "/mern-task-manager/", // REPLACE "mern-task-manager" with your repo name
 })
 
 ```
 
-#### **3. Update `frontend/package.json**`
+### 3. Update `package.json`
 
-Add the `homepage` field and the deployment scripts.
-
-Open `frontend/package.json` and add these lines:
+In `frontend/package.json`, add the `homepage` and scripts:
 
 ```json
 {
   "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "homepage": "https://<your-github-username>.github.io/mern-task-manager", 
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist" 
-  },
-  ...
+  }
 }
 
 ```
 
-* **Replace** `<your-github-username>` with your actual GitHub username.
-* **Replace** `mern-task-manager` with your repository name.
-
-#### **4. Deploy!**
-
-Run this command from the `frontend` folder:
+### 4. Deploy
 
 ```bash
 npm run deploy
 
 ```
 
-This command will:
+### ⚠️ Crucial: Backend Connection for GitHub Pages
 
-1. Build your app (create the `dist` folder).
-2. Push that folder to a special branch called `gh-pages` on your GitHub repository.
+Since your frontend is on GitHub Pages but backend is on Render:
 
-#### **5. Configure GitHub Settings**
-
-1. Go to your repository on GitHub.
-2. Go to **Settings** > **Pages**.
-3. Under **Source**, ensure it is set to `Deploy from a branch`.
-4. Under **Branch**, select `gh-pages` and folder `/(root)`.
-5. Click **Save**.
-
-Your frontend will be live at the URL shown in the settings (e.g., `https://lovnishverma.github.io/mern-task-manager/`).
-
-### **Crucial Reminder: Backend Connection**
-
-Since your frontend is now on GitHub Pages, but your backend is still on Render:
-
-1. **Environment Variable:** Ensure your `.env` file (or hardcoded `api.js`) points to your **Render Backend URL**, not localhost.
+1. **Frontend API URL:** Ensure your `api.js` points to the Render Backend URL.
+2. **Backend CORS:** Update `backend/server.js` to allow the GitHub Pages URL:
 ```javascript
-// frontend/src/api.js
-const API = axios.create({ baseURL: "https://your-backend-service.onrender.com/api" });
+app.use(cors({
+  origin: ["[https://lovnishverma.github.io](https://lovnishverma.github.io)", "http://localhost:5173"] 
+}));
 
 ```
 
 
-2. **CORS:** If you get a connection error, you might need to update your Backend `server.js` to allow requests from your new GitHub Pages URL:
-```javascript
-// backend/server.js
-app.use(cors({
-  origin: ["https://lovnishverma.github.io", "http://localhost:5173"] 
-}));
-
-
-
-7. Click **Create Static Site**.
 
 ---
 
