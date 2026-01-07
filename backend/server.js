@@ -12,11 +12,13 @@ app.use(express.json());
 
 app.use("/api/tasks", taskRoutes);
 
+// ✅ FIX: Use the port provided by the environment (Render), or default to 5000 for local dev
+const PORT = process.env.PORT || 5000;
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(5000, "0.0.0.0", () => {
-  console.log("Server running on http://0.0.0.0:5000");
-});
-
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   })
   .catch(err => console.log(err));
