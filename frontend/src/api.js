@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://192.168.10.104:5000/api" });
-
+// Change this line to point to your Render backend URL
+const API = axios.create({ baseURL: "https://mern-task-manager-b89p.onrender.com/api" });
 
 export const getTasks = () => API.get("/tasks");
 export const addTask = (task) => API.post("/tasks", task);
