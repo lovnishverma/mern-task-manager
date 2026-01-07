@@ -22,7 +22,7 @@ A simple to-do application built using the **MERN stack**—MongoDB, Express.js,
 ### 1. Clone the repository
 
 ```bash
-git clone [https://github.com/lovnishverma/mern-task-manager.git](https://github.com/lovnishverma/mern-task-manager.git)
+git clone https://github.com/lovnishverma/mern-task-manager.git
 cd mern-task-manager
 
 ```
