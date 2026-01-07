@@ -117,6 +117,113 @@ Deploy your app for free using Render. You will create two separate services: on
 * **Destination:** `/index.html`
 * **Action:** Rewrite
 
+**Optional:**
+
+You can deploy the frontend to **GitHub Pages** too. It is free and works very well for React (Vite) applications.
+
+However, since your backend is on Render, you will still need to point your frontend to that Render backend URL.
+
+### **Steps to Deploy Frontend to GitHub Pages**
+
+#### **1. Install `gh-pages**`
+
+In your **frontend** directory, install the deployment tool:
+
+```bash
+cd frontend
+npm install gh-pages --save-dev
+
+```
+
+#### **2. Update `frontend/vite.config.js**`
+
+You need to set the `base` path in Vite so it knows where the files are being served from on GitHub Pages.
+
+Open `frontend/vite.config.js` and add the `base` property:
+
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  base: "/mern-task-manager/", // REPLACE "mern-task-manager" with your exact repo name
+})
+
+```
+
+#### **3. Update `frontend/package.json**`
+
+Add the `homepage` field and the deployment scripts.
+
+Open `frontend/package.json` and add these lines:
+
+```json
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://<your-github-username>.github.io/mern-task-manager", 
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist" 
+  },
+  ...
+}
+
+```
+
+* **Replace** `<your-github-username>` with your actual GitHub username.
+* **Replace** `mern-task-manager` with your repository name.
+
+#### **4. Deploy!**
+
+Run this command from the `frontend` folder:
+
+```bash
+npm run deploy
+
+```
+
+This command will:
+
+1. Build your app (create the `dist` folder).
+2. Push that folder to a special branch called `gh-pages` on your GitHub repository.
+
+#### **5. Configure GitHub Settings**
+
+1. Go to your repository on GitHub.
+2. Go to **Settings** > **Pages**.
+3. Under **Source**, ensure it is set to `Deploy from a branch`.
+4. Under **Branch**, select `gh-pages` and folder `/(root)`.
+5. Click **Save**.
+
+Your frontend will be live at the URL shown in the settings (e.g., `https://lovnishverma.github.io/mern-task-manager/`).
+
+### **Crucial Reminder: Backend Connection**
+
+Since your frontend is now on GitHub Pages, but your backend is still on Render:
+
+1. **Environment Variable:** Ensure your `.env` file (or hardcoded `api.js`) points to your **Render Backend URL**, not localhost.
+```javascript
+// frontend/src/api.js
+const API = axios.create({ baseURL: "https://your-backend-service.onrender.com/api" });
+
+```
+
+
+2. **CORS:** If you get a connection error, you might need to update your Backend `server.js` to allow requests from your new GitHub Pages URL:
+```javascript
+// backend/server.js
+app.use(cors({
+  origin: ["https://lovnishverma.github.io", "http://localhost:5173"] 
+}));
 
 
 
